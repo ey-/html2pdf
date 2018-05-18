@@ -1,6 +1,6 @@
 /**
  * html2pdf.js v0.8.2
- * Copyright (c) 2017 Erik Koopmans
+ * Copyright (c) 2018 Erik Koopmans
  * Released under the MIT License.
  */
 import 'es6-promise/auto';
@@ -364,7 +364,11 @@ html2pdf.makePDF = function (canvas, pageSize, opt) {
   }
 
   // Finish the PDF.
-  pdf.save(opt.filename);
+  if (objType(opt.pdfCallback) === 'function') {
+    opt.pdfCallback(pdf);
+  } else {
+    pdf.save(opt.filename);
+  }
 };
 
 export default html2pdf;
